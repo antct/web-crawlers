@@ -1,0 +1,1 @@
+@python log.py login && pause
