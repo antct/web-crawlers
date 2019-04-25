@@ -1,4 +1,4 @@
-# Scripts
+# Tools
 
 - [x] B站弹幕爬虫
 - [x] CC98 API
