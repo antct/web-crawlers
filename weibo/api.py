@@ -35,7 +35,7 @@ class weibo():
         data['password'] = self._password
 
         res = self._session.post(url='https://passport.weibo.cn/sso/login', data=data, headers=self._headers)
-        print(res.text)
+        # print(res.text)
 
     def get_user_info(self, user_id):
         res = self._session.get(url='https://weibo.cn/{}/info'.format(user_id))
@@ -122,12 +122,36 @@ class weibo():
     def get_line_bfs(self, user_id, target, line):
         pass
 
+    def get_all_weibo(self, user_id):
+        res = self._session.get(url='https://weibo.cn/u/{}'.format(user_id))
+        soup = bs4.BeautifulSoup(res.text, 'html.parser')
+
+        page = None
+
+        try:
+            pagelist = soup.find(id='pagelist')
+            page = int(pagelist.findAll('input')[0].get('value'))
+        except Exception:
+            page = 1
+
+        weibos = []
+        for i in range(1, page + 1):
+            res = self._session.get(url='https://weibo.cn/u/{}?page={}'.format(user_id, i))
+            soup = bs4.BeautifulSoup(res.text, 'html.parser')
+            # 手机微博触屏版
+            # 最后两个也是信息
+            cs = soup.findAll('div', attrs={'class': 'c'})[1:-2]
+            for c in cs:
+                print(c)
+                break
+            break
+
 
     
 if __name__ == '__main__':
     obj = weibo()
     obj.login()
     # print(obj.get_fans('2667215760'))
-    print(obj.get_line('2667215760', '1929266145', []))
+    print(obj.get_all_weibo(''))
     
     
