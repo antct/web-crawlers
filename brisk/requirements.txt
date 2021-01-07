@@ -3,7 +3,7 @@ bs4==0.0.1
 certifi==2018.11.29
 chardet==3.0.4
 idna==2.8
-lxml==4.3.0
+lxml==4.6.2
 redis==3.0.1
 requests==2.21.0
 soupsieve==1.6.2
